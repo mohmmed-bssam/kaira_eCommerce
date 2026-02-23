@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\Trans;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //
+    use Trans;
     protected $guarded = [];
     public function image()
     {
@@ -27,5 +28,13 @@ class Product extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'title' => 'array',
+            'content' => 'array',
+        ];
     }
 }
