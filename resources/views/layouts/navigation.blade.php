@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('dashboard.sliders.index')" :active="request()->routeIs('dashboard.sliders.index')">
                         {{ __('Slider') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.categories.index')" :active="request()->routeIs('dashboard.categories.index')">
+                        {{ __('Categories') }}
+                    </x-nav-link>
                 </div>
             </div>
 

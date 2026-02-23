@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -17,6 +18,11 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::resource('sliders', SliderController::class);
+        Route::resource('categories', CategoryController::class);
+        Route::get('/flash-test', function () {
+            flash()->success('اشتغل 🔥');
+            return back();
+        })->name('flash-test');
     });
 });
 
