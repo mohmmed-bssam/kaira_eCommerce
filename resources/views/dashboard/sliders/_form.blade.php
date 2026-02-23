@@ -24,15 +24,15 @@
                   </div>
                   <div class="grid grid-cols-2 gap-4">
                       <div class="mt-4">
-                          <x-input-label for="description_en" :value="__('English description')" />
-                          <x-textarea id="description_en" rows="5" class="block mt-1 w-full"
-                              name="description_en">{{ old('description_en', $slider->description['en'] ?? '') }}</x-textarea>
-                          <x-input-error :messages="$errors->get('description_en')" class="mt-2" />
+                          <x-input-label for="content_en" :value="__('English Content')" />
+                          <x-textarea id="content_en" rows="5" class="block mt-1 w-full"
+                              name="content_en">{{ old('content_en', $slider->content['en'] ?? '') }}</x-textarea>
+                          <x-input-error :messages="$errors->get('content_en')" class="mt-2" />
                       </div>
                       <div class="mt-4">
-                          <x-input-label for="description_ar" :value="__('Arabic description')" />
-                          <x-textarea id="description_ar" rows="5" class="block mt-1 w-full"
-                              name="description_ar">{{ old('description_ar', $slider->description['ar'] ?? '') }}</x-textarea>
-                          <x-input-error :messages="$errors->get('description_ar')" class="mt-2" />
+                          <x-input-label for="content_ar" :value="__('Arabic Content')" />
+                          <x-textarea id="content_ar" rows="5" class="block mt-1 w-full"
+                              name="content_ar">{{ old('content_ar', $slider->content['ar'] ?? '') }}</x-textarea>
+                          <x-input-error :messages="$errors->get('content_ar')" class="mt-2" />
                       </div>
                   </div>

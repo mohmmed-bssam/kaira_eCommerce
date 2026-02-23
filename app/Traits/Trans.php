@@ -8,8 +8,8 @@ trait Trans
     {
         return $this->title[app()->getLocale()];
     }
-    public function getdescriptionTransAttribute()
+    public function getcontentTransAttribute()
     {
-        return $this->description[app()->getLocale()];
+        return $this->content[app()->getLocale()];
     }
 }

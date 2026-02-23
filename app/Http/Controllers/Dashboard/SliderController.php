@@ -25,8 +25,8 @@ class SliderController extends Controller
         $request->validate([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
-            'description_en' => 'nullable|string',
-            'description_ar' => 'nullable|string',
+            'content_en' => 'nullable|string',
+            'content_ar' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $slider = Slider::create([
@@ -34,9 +34,9 @@ class SliderController extends Controller
                 'en' => $request->input('title_en'),
                 'ar' => $request->input('title_ar'),
             ],
-            'description' =>[
-                'en' => $request->input('description_en'),
-                'ar' => $request->input('description_ar'),
+            'content' =>[
+                'en' => $request->input('content_en'),
+                'ar' => $request->input('content_ar'),
             ] ,
         ]);
 
@@ -59,17 +59,17 @@ class SliderController extends Controller
         $request->validate([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
-            'description_en' => 'nullable|string',
-            'description_ar' => 'nullable|string',
+            'content_en' => 'nullable|string',
+            'content_ar' => 'nullable|string',
         ]);
         $slider->update([
             'title' => [
                 'en' => $request->input('title_en'),
                 'ar' => $request->input('title_ar'),
             ],
-            'description' =>[
-                'en' => $request->input('description_en'),
-                'ar' => $request->input('description_ar'),
+            'content' =>[
+                'en' => $request->input('content_en'),
+                'ar' => $request->input('content_ar'),
             ],
         ]);
 

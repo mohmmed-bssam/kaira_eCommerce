@@ -17,7 +17,7 @@ class Slider extends Model
     protected function casts(): array {
         return [
             'title' => 'array',
-            'description' => 'array',
+            'content' => 'array',
         ];
     }
 }
