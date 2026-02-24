@@ -18,7 +18,7 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function tracking()
+    public function trackings()
     {
         return $this->hasMany(OrderTracking::class);
     }
