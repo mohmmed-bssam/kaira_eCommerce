@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('dashboard.products.index')" :active="request()->routeIs('dashboard.products.index')">
                         {{ __('Products') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.subscriptions')" :active="request()->routeIs('dashboard.subscriptions')">
+                        {{ __('Subscriptions') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -43,6 +46,12 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('dashboard.settings')">
+                            {{ __('Setting') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('dashboard.messages')">
+                            {{ __('Messages') }}
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>

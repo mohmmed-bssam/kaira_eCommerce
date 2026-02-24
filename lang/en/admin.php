@@ -1,0 +1,25 @@
+<?php
+    return [
+        'dashboard' => 'Dashboard',
+        'users' => 'Users',
+        'settings' => 'Settings',
+        'logout' => 'Logout',
+        'sliders' => 'Sliders',
+        'categories' => 'Categories',
+        'cases' => 'Cases',
+        'services' => 'Services',
+        'statistics' => 'Statistics',
+        'subscriptions'=>'subscriptions',
+        'events' => 'Events',
+        'payments'=>'Payments',
+        'donations'=>'Donations',
+        'donors'=>'Donors',
+        'messages'=>'Messages',
+        'teams' => 'Teams',
+        'settings'=>'Settings',
+        'notifications'=>'Notifications',
+        'testimonials' => 'Testimonials',
+        'language'=>'languages',
+        'home_page'=>'Home Page',
+    ];
+?>

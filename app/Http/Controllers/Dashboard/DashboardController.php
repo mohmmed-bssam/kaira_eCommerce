@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
+use App\Models\Massage;
 use App\Models\Setting;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+
 
 class DashboardController extends Controller
 {
@@ -12,6 +15,7 @@ class DashboardController extends Controller
     {
         return view('dashboard');
     }
+
     public function settings()
     {
         return view('dashboard.settings');
@@ -34,8 +38,22 @@ class DashboardController extends Controller
 
         return redirect()->back();
     }
-    public function subscriptions(){
+    public function messages()
+    {
+        $messages = Massage::latest()->paginate(env('PAGE_SIZE'));
+        return view('dashboard.messages', compact('messages'));
+    }
+    public function delete_messages($id)
+    {
+        $message = Massage::findOrFail($id);
+        $message->delete();
+
+        flash()->warning('the Massages Deleted!');
+        return redirect()->back();
+    }
+    public function subscriptions()
+    {
         $subscriptions = Subscription::latest()->paginate(env('PAGE_SIZE'));
-        return view('dashboard.subscriptions',compact('subscriptions'));
+        return view('dashboard.subscriptions', compact('subscriptions'));
     }
-    }
+}
