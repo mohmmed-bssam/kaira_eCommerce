@@ -15,16 +15,16 @@
                 <div class="p-6 text-gray-900">
 
 
-                    <form method="POST" action="{{ route('dashboard.orders.update', $order) }}">
+                    {{-- <form method="POST" action="{{ route('dashboard.orders.update', $order) }}">
                         @csrf
-                        @method('PUT')
+                        @method('PUT') --}}
                         @include('dashboard.orders._form')
-                        <div class="flex items-center justify-end mt-4">
+                        {{-- <div class="flex items-center justify-end mt-4">
                             <x-primary-button class="ml-4">
                                 {{ __('Update order') }}
                             </x-primary-button>
-                        </div>
-                    </form>
+                        </div> --}}
+                    {{-- </form> --}}
 
 
                 </div>

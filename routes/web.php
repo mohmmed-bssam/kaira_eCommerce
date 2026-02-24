@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\OrderTrackingController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\OrderController as ControllersOrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
         Route::resource('categories', CategoryController::class);
         Route::resource('products', ProductController::class);
         Route::resource('orders', OrderController::class)->only(['index', 'show', 'update', 'destroy']);
-        // Route::resource('payments', PaymentController::class)->only(['index', 'show']);
+        Route::resource('payments', PaymentController::class)->only(['index', 'show']);
 
         // Tracking داخل الطلب
         Route::post('orders/{order}/tracking', [OrderTrackingController::class, 'store'])->name('orders.tracking.store');

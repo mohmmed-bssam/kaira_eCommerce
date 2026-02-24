@@ -12,4 +12,8 @@ class OrderTracking extends Model
     {
         return $this->belongsTo(Order::class)->withDefault();
     }
+    protected $casts = [
+        'status_date'   => 'datetime',
+        'delivery_date' => 'datetime',
+    ];
 }
