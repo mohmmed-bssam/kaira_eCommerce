@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\OrderTrackingController;
+use App\Http\Controllers\Dashboard\PaymentController as DashboardPaymentController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\OrderController as ControllersOrderController;
@@ -36,6 +37,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
         Route::get('subscriptions', [DashboardController::class, 'subscriptions'])->name('subscriptions');
         Route::get('messages', [DashboardController::class, 'messages'])->name('messages');
         Route::delete('delete_messages/{id}', [DashboardController::class, 'delete_messages'])->name('delete_messages');
+        Route::get('customers', [DashboardPaymentController::class, 'customers'])->name('customers');
+        Route::get('payments', [DashboardPaymentController::class, 'payments'])->name( 'payments');
     });
 });
 
