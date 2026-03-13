@@ -21,7 +21,7 @@ class Product extends Model
     {
         return $this->hasMany(Wishlist::class);
     }
-    public function cartItems()
+    public function items()
     {
         return $this->hasMany(CartItem::class);
     }
