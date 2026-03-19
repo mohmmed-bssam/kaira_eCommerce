@@ -137,7 +137,7 @@
                              @forelse($order->items as $item)
                                  <tr class="border-b">
                                      <td class="py-2">
-                                         {{ $item->product->title ?? 'Deleted product' }}
+                                         {{ $item->product->title_trans ?? 'Deleted product' }}
                                      </td>
                                      <td class="py-2">{{ number_format($item->price, 2) }}</td>
                                      <td class="py-2">{{ $item->quantity }}</td>

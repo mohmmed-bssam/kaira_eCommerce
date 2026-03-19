@@ -4,15 +4,12 @@
     <section id="billboard" class="bg-light py-5">
         <div class="container">
             <div class="row justify-content-center">
-                <h1 class="section-title text-center mt-4" data-aos="fade-up">New Collections</h1>
+                <h1 class="section-title text-center mt-4" data-aos="fade-up">{{ $settings['about_title'] }}</h1>
                 <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur,
-                        adipisci
-                        repellat! Eveniet commodi voluptatem voluptate, eum minima, in suscipit explicabo voluptatibus
-                        harum,
-                        quibusdam ex repellat eaque!</p>
+                    <p>{{ $settings['about_content'] }}!</p>
                 </div>
             </div>
+
             {{-- sliders --}}
             <div class="row">
                 <div class="swiper main-swiper py-4" data-aos="fade-up" data-aos-delay="600">
@@ -142,11 +139,20 @@
                                         <img src="{{ asset($product->image->path) }}" alt="categories"
                                             class="product-image img-fluid">
                                     </a>
-                                    <a href="index.html" class="btn-icon btn-wishlist">
+                                    <a href="#"
+                                        onclick="event.preventDefault(); document.getElementById('add-to-wishlist-{{ $product->id }}').submit();"
+                                        class="btn-icon btn-wishlist">
                                         <svg width="24" height="24" viewBox="0 0 24 24">
                                             <use xlink:href="#heart"></use>
                                         </svg>
                                     </a>
+
+
+                                    <form id="add-to-wishlist-{{ $product->id }}"
+                                        action="{{ route('front.wishlist.store', $product->id) }}" method="POST"
+                                        style="display:none;">
+                                        @csrf
+                                    </form>
                                     <div class="product-content">
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
                                             <a
@@ -210,147 +216,60 @@
             </div>
         </div>
     </section>
-
+{{-- wishlists --}}
     <section id="best-sellers" class="best-sellers product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
                 <h4 class="text-uppercase">Best Selling Items</h4>
-                <a href="index.html" class="btn-link">View All Products</a>
+                <a href="{{ route('front.wishlist.index') }}" class="btn-link">View All Wishlist</a>
             </div>
             <div class="swiper product-swiper open-up" data-aos="zoom-out">
                 <div class="swiper-wrapper d-flex">
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="index.html">
-                                    <img src="{{ asset('assets/images/product-item-4.jpg') }}" alt="categories"
-                                        class="product-image img-fluid">
-                                </a>
-                                <a href="index.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#heart"></use>
-                                    </svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="index.html">Dark florish onepiece</a>
-                                    </h5>
-                                    <a href="index.html" class="text-decoration-none"
-                                        data-after="Add to cart"><span>$95.00</span></a>
+                    @foreach ($wishlists as $wishlist)
+                        <div class="swiper-slide">
+                            <div class="product-item image-zoom-effect link-effect">
+                                <div class="image-holder position-relative">
+                                    <a href="{{ route('front.product.show', $wishlist->product->slug) }}">
+                                        <img src="{{ asset($wishlist->product->image->path) }}" alt="categories"
+                                            class="product-image img-fluid">
+                                    </a>
+                                    <a href="#"
+                                        onclick="event.preventDefault(); document.getElementById('add-to-wishlist-{{ $wishlist->product->id }}').submit();"
+                                        class="btn-icon btn-wishlist">
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                            <use xlink:href="#heart"></use>
+                                        </svg>
+                                    </a>
+
+
+                                    <form id="add-to-wishlist-{{ $wishlist->product->id }}"
+                                        action="{{ route('front.wishlist.store', $wishlist->product->id) }}" method="POST"
+                                        style="display:none;">
+                                        @csrf
+                                    </form>
+                                    <div class="product-content">
+                                        <h5 class="element-title text-uppercase fs-5 mt-3">
+                                            <a
+                                                href="{{ route('front.product.show', $wishlist->product->slug) }}">{{ $wishlist->product->title_trans }}</a>
+                                        </h5>
+                                        <a href="#"
+                                            onclick="event.preventDefault(); document.getElementById('add-to-cart-{{ $wishlist->product->id }}').submit();"
+                                            class="text-decoration-none" data-after="Add to cart">
+                                            <span>{{ $wishlist->product->price }}</span>
+                                        </a>
+
+                                        <form id="add-to-cart-{{ $wishlist->product->id }}"
+                                            action="{{ route('front.cart.store', $wishlist->product->id) }}" method="POST"
+                                            style="display:none;">
+                                            @csrf
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="index.html">
-                                    <img src="{{ asset('assets/images/product-item-3.jpg') }}" alt="product"
-                                        class="product-image img-fluid">
-                                </a>
-                                <a href="index.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#heart"></use>
-                                    </svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="index.html">Baggy Shirt</a>
-                                    </h5>
-                                    <a href="index.html" class="text-decoration-none"
-                                        data-after="Add to cart"><span>$55.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="index.html">
-                                    <img src="{{ asset('assets/images/product-item-5.jpg') }}" alt="categories"
-                                        class="product-image img-fluid">
-                                </a>
-                                <a href="index.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#heart"></use>
-                                    </svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="index.html">Cotton off-white shirt</a>
-                                    </h5>
-                                    <a href="index.html" class="text-decoration-none"
-                                        data-after="Add to cart"><span>$65.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="index.html">
-                                    <img src="{{ asset('assets/images/product-item-6.jpg') }}" alt="categories"
-                                        class="product-image img-fluid">
-                                </a>
-                                <a href="index.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#heart"></use>
-                                    </svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="index.html">Handmade crop sweater</a>
-                                    </h5>
-                                    <a href="index.html" class="text-decoration-none"
-                                        data-after="Add to cart"><span>$50.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="index.html">
-                                    <img src="{{ asset('assets/images/product-item-9.jpg') }}" alt="categories"
-                                        class="product-image img-fluid">
-                                </a>
-                                <a href="index.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#heart"></use>
-                                    </svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="index.html">Dark florish onepiece</a>
-                                    </h5>
-                                    <a href="index.html" class="text-decoration-none"
-                                        data-after="Add to cart"><span>$70.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="index.html">
-                                    <img src="{{ asset('assets/images/product-item-10.jpg') }}" alt="categories"
-                                        class="product-image img-fluid">
-                                </a>
-                                <a href="index.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#heart"></use>
-                                    </svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="index.html">Cotton off-white shirt</a>
-                                    </h5>
-                                    <a href="index.html" class="text-decoration-none"
-                                        data-after="Add to cart"><span>$70.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
+
                 </div>
                 <div class="swiper-pagination"></div>
             </div>

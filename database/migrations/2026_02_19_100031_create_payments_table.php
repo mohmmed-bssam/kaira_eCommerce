@@ -18,7 +18,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->foreignId('user_id')
                 ->constrained()
-                ->cascadeOnDelete();
+                ->cascadeOnDelete()->nullable();
             $table->decimal('amount', 10, 2);
             $table->enum('payment_gateway', ['paypal', 'stripe', 'credit_card']);
             $table->string('payment_status')->default('pending');

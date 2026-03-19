@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Pest\Matchers\Any;
@@ -18,8 +19,9 @@ class HomeController extends Controller
         $sliders = Slider::with('image')->latest()->take(6)->get();
         $categories = Category::with('image')->latest()->take(3)->get();
         $products = Product::with('image')->latest()->take(6)->get();
+        $wishlists = Wishlist::with('product.image')->latest()->take(6)->get();
 
 
-        return view('front.home', compact('sliders', 'categories', 'products'));
+        return view('front.home', compact('sliders', 'categories', 'products', 'wishlists'));
     }
 }

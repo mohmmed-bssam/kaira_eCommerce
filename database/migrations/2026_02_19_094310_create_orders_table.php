@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('total_price', 10, 2);
             $table->text('shipping_address');
             $table->string('payment_status')->default('pending');
+            $table->string('phone')->nullable();
             $table->string('order_status')->default('processing');
 
 

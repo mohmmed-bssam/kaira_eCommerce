@@ -20,7 +20,7 @@ class CartComposer
                 ->first();
 
             if ($cart) {
-                $cartItems = $cart->items;
+                 $cartItems = $cart->items()->with('product')->get()->filter(fn($item) => $item->product);
                 $cartCount = $cartItems->sum('quantity');
             }
         }

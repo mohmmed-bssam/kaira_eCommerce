@@ -48,7 +48,7 @@
                                           href="{{ route('front.cart.index') }}">Cart</a></li>
                                   <li><a class="dropdown-item item-anchor"
                                           href="{{ route('front.checkout.index') }}">Checkout</a></li>
-                                  <li><a class="dropdown-item item-anchor" href="{{ route('front.pages.account') }}">My
+                                  <li><a class="dropdown-item item-anchor" href="{{ route('profile.edit') }}">My
                                           Account</a></li>
                                   <li><a class="dropdown-item item-anchor"
                                           href="{{ route('front.pages.tracking') }}">Order Tracking</a></li>

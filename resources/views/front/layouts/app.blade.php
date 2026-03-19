@@ -192,7 +192,7 @@
                     @forelse($cartItems as $item)
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
-                                <h6 class="my-0">{{ $item->product->title_trans }}</h6>
+                                <h6 class="my-0">{{ $item->product->title_trans  }}</h6>
                                 <small class="text-body-secondary">
                                     Quantity: <span class="mini-qty-{{ $item->id }}">{{ $item->quantity }}</span>
                                 </small>
@@ -212,13 +212,12 @@
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total (USD)</span>
                         <strong id="mini-cart-total">
-${{ $cart ? $cart->items->sum(fn($i) => $i->price * $i->quantity) : 0 }}                        </strong>
+                            ${{ $cart ? $cart->items->sum(fn($i) => $i->price * $i->quantity) : 0 }} </strong>
                     </li>
 
 
                 </ul>
-
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to Checkout</button>
+                    <a href="{{ route('front.checkout.index') }}" class="w-100 btn btn-primary btn-lg">Continue to Checkout</a>
             </div>
         </div>
     </div>

@@ -8,14 +8,18 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="product-image">
-                        <img src="{{ asset($product->images->first()->path) }}" alt="{{ $product->title_trans }}" class="img-fluid">
+                        <img src="{{ asset($product->image->path) }}" alt="{{ $product->title_trans }}" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <h2 class="product-title">{{ $product->title_trans }}</h2>
                     <p class="product-price">{{ $product->price }}</p>
                     <p class="product-description">{{ $product->content_trans }}</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                    <form id="add-to-cart"
+                                            action="{{ route('front.cart.store', $product->id) }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-primary" type="submit">Add to Cart</button>
+                                        </form>
                 </div>
             </div>
         </div>

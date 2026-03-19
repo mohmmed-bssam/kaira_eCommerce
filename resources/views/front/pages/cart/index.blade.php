@@ -50,7 +50,7 @@
                     @foreach ($cart->items as $item)
                         <tr id="cart-row-{{ $item->id }}">
                             <td class="d-flex align-items-center gap-3">
-                                <img src="{{ $item->product->images->first()->path ?? '' }}" width="60">
+                                <img src="{{ $item->product->image->path }}" width="60">
                                 {{ $item->product->title_trans }}
                             </td>
                             <td>

@@ -58,6 +58,12 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
                 Route::get('/account', fn() => view('front.pages.account'))->name('account');
                 Route::get('/tracking', fn() => view('front.pages.tracking'))->name('tracking');
             });
+            //payment
+            Route::get('/payment/{order}', [PaymentController::class, 'checkout'])->name('payment.checkout');
+
+            Route::get('/payment/success/{order}', [PaymentController::class, 'success'])->name('payment.success');
+
+            Route::get('/payment/cancel/{order}', [PaymentController::class, 'cancel'])->name('payment.cancel');
 
 
             Route::get('/blog', [PageController::class, 'blog'])->name('blog.index');

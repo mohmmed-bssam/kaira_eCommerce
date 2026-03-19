@@ -4,11 +4,10 @@
 
 @section('content')
 
-       <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
+    <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
                 <h4 class="text-uppercase">Our New Arrivals</h4>
-                <a href="{{ route('front.shop.index') }}" class="btn-link">View All Products</a>
             </div>
             <div class="swiper product-swiper open-up" data-aos="zoom-out">
                 <div class="swiper-wrapper d-flex">
@@ -20,11 +19,20 @@
                                         <img src="{{ asset($product->image->path) }}" alt="categories"
                                             class="product-image img-fluid">
                                     </a>
-                                    <a href="index.html" class="btn-icon btn-wishlist">
+
+                                    <a href="#"
+                                        onclick="event.preventDefault(); document.getElementById('add-to-wishlist-{{ $product->id }}').submit();"
+                                        class="btn-icon btn-wishlist" >
                                         <svg width="24" height="24" viewBox="0 0 24 24">
                                             <use xlink:href="#heart"></use>
                                         </svg>
-                                    </a>
+                                     </a>
+
+                                    <form id="add-to-wishlist-{{ $product->id }}"
+                                        action="{{ route('front.wishlist.store', $product->id) }}" method="POST"
+                                        style="display:none;">
+                                        @csrf
+                                    </form>
                                     <div class="product-content">
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
                                             <a

@@ -49,6 +49,30 @@
                                     :value="$settings['mail_us'] ?? ''" />
                             </div>
                         </div>
+
+                        <hr class="my-6">
+
+                        <h3 class="text-lg font-bold">About Us</h3>
+                        <div class="grid grid-cols-4 md:max-w-2xl items-center mt-4">
+                            <div>
+                                <x-input-label for="about_title" class="block font-medium text-sm text-gray-700 !text-lg"
+                                    :value="__('About Title')" />
+                            </div>
+                            <div class="col-span-2">
+                                <x-text-input id="about_title" class="block mt-1 w-full" type="text" name="about_title"
+                                :value="$settings['about_title'] ?? ''"/>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 md:max-w-2xl items-center mt-4">
+                            <div>
+                                <x-input-label for="about_content"
+                                    class="block font-medium text-sm text-gray-700 !text-lg" :value="__('about_content')" />
+                            </div>
+                            <div class="col-span-2">
+                                <x-textarea id="about_content" rows="4" class="block mt-1 w-full"
+                                    name="about_content">{{ $settings['about_content'] ?? '' }}</x-textarea>
+                            </div>
+                        </div>
                         <x-primary-button class="mt-6">Save</x-primary-button>
                     </form>
 
