@@ -161,44 +161,47 @@
          <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
              <div class="p-6 text-gray-900">
                  <h3 class="font-semibold text-lg mb-4">Tracking</h3>
-
-                 <form method="POST" action="{{ route('dashboard.orders.tracking.store', $order) }}"
+                 @php
+                     $tracking = $order->trackings->last();
+                 @endphp
+                 <form method="POST" action="{{ route('dashboard.orders.tracking.update', $order) }}"
                      class="grid grid-cols-1 md:grid-cols-4 gap-4">
                      @csrf
+                     @method('PUT')
                      <div>
                          <x-input-label for="tracking_number" value="Tracking #" />
-                         <x-text-input id="tracking_number" name="tracking_number" class="mt-1 w-full" />
-                         <x-input-error :messages="$errors->get('tracking_number')" class="mt-2" />
+                         <x-text-input id="tracking_number" name="tracking_number" class="mt-1 w-full"
+                             :value="old('tracking_number', $tracking?->tracking_number)" /> <x-input-error :messages="$errors->get('tracking_number')" class="mt-2" />
 
                      </div>
 
                      <div>
                          <x-input-label for="status" value="Status" />
-                         {{-- <x-text-input id="status" name="status" class="mt-1 w-full"
-                             placeholder="shipped / delivered" /> --}}
-                         <x-select id="status" name="status" class="mt-1 w-full">
-                             <option value="pending">Pending</option>
-                             <option value="shipped">Shipped</option>
-                             <option value="delivered">Delivered</option>
-                             <option value="cancelled">Cancelled</option>
-                         </x-select>
-                            <x-input-error :messages="$errors->get('status')" class="mt-2" />
+                            <x-text-input id="status" name="status" class="mt-1 w-full"
+                                :value="old('status', $tracking?->status)" readonly />
+                         <x-input-error :messages="$errors->get('status')" class="mt-2" />
                      </div>
 
                      <div>
                          <x-input-label for="shipping_company" value="Company" />
-                         <x-text-input id="shipping_company" name="shipping_company" class="mt-1 w-full" />
-                            <x-input-error :messages="$errors->get('shipping_company')" class="mt-2" />
+                         <x-text-input id="shipping_company" name="shipping_company" class="mt-1 w-full"
+                             :value="old('shipping_company', $tracking?->shipping_company)" />
+                         <x-input-error :messages="$errors->get('shipping_company')" class="mt-2" />
                      </div>
 
                      <div>
                          <x-input-label for="delivery_date" value="Delivery Date" />
-                         <x-text-input id="delivery_date" type="date" name="delivery_date" class="mt-1 w-full" />
-                            <x-input-error :messages="$errors->get('delivery_date')" class="mt-2" />
+                         <x-text-input id="delivery_date" type="date" name="delivery_date" class="mt-1 w-full"
+                             :value="old(
+                                 'delivery_date',
+                                 $tracking?->delivery_date
+                                     ? \Carbon\Carbon::parse($tracking->delivery_date)->format('Y-m-d')
+                                     : '',
+                             )" /> <x-input-error :messages="$errors->get('delivery_date')" class="mt-2" />
                      </div>
 
                      <div class="md:col-span-4 flex justify-end">
-                         <x-primary-button>Add Tracking</x-primary-button>
+                         <x-primary-button>Update Tracking</x-primary-button>
                      </div>
                  </form>
 

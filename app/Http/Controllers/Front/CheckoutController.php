@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\OrderTracking;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -61,19 +62,15 @@ class CheckoutController extends Controller
 
             // إنشاء عناصر الطلب
             foreach ($cart->items as $item) {
-
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
                     'quantity' => $item->quantity,
                     'price' => $item->price
                 ]);
-
                 // خصم المخزون
                 $product = $item->product;
-
                 $product->decrement('stock', $item->quantity);
-
                 // زيادة المبيعات
                 $product->increment('sales_count', $item->quantity);
             }
@@ -85,6 +82,14 @@ class CheckoutController extends Controller
                 'amount' => $total,
                 'payment_gateway' => $paymentMethod,
                 'payment_status' => 'pending'
+            ]);
+            OrderTracking::create([
+                'order_id' => $order->id,
+                'status' => 'pending', // أو processing حسب منطقك
+                'tracking_number' => 'TRK-' . strtoupper(uniqid()),
+                'shipping_company' => 'N/A',
+                'delivery_date' => null,
+                'status_date' => now(),
             ]);
 
             // حذف السلة وعناصر السلة

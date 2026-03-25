@@ -87,7 +87,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
             Route::resource('payments', PaymentController::class)->only(['index', 'show']);
 
             // Tracking داخل الطلب
-            Route::post('orders/{order}/tracking', [OrderTrackingController::class, 'store'])->name('orders.tracking.store');
+            Route::put('orders/{order}/tracking', [OrderTrackingController::class, 'update'])->name('orders.tracking.update');
             Route::delete('orders/{order}/tracking/{tracking}', [OrderTrackingController::class, 'destroy'])->name('orders.tracking.destroy');
             Route::get('settings', [DashboardController::class, 'settings'])->name('settings');
             Route::put('settings', [DashboardController::class, 'settings_update']);

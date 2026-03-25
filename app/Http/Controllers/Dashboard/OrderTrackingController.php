@@ -9,26 +9,35 @@ use Illuminate\Http\Request;
 
 class OrderTrackingController extends Controller
 {
-    public function store(Request $request, Order $order)
+    public function update(Request $request, Order $order)
     {
-        $request->validate([
-            'tracking_number' => 'required|string|max:255',
-            'status' => 'required|string|max:255',
-            'shipping_company' => 'nullable|string|max:255',
-            'delivery_date' => 'nullable|date',
+        $data = $request->validate([
+            'tracking_number' => ['nullable', 'string', 'max:255'],
+            'shipping_company' => ['nullable', 'string', 'max:255'],
+            'delivery_date' => ['nullable', 'date'],
         ]);
 
-        $order->trackings()->create([
-            'tracking_number' => $request->tracking_number,
-            'status' => $request->status,
-            'shipping_company' => $request->shipping_company,
-            'delivery_date' => $request->delivery_date,
-            'status_date' => now(),
-        ]);
+        $tracking = $order->trackings()->latest()->first();
 
+        if (!$tracking) {
+            $tracking = $order->trackings()->create([
+                'tracking_number' => $data['tracking_number'] ?? ('TRK-' . strtoupper(uniqid())),
+                'shipping_company' => $data['shipping_company'] ?? null,
+                'delivery_date' => $data['delivery_date'] ?? null,
+                'status_date' => now(),
+            ]);
+        } else {
+            $tracking->update([
+                'tracking_number' => $data['tracking_number'],
+                'shipping_company' => $data['shipping_company'],
+                'delivery_date' => $data['delivery_date'],
+                'status_date' => now(),
+            ]);
+        }
 
-        flash()->success('Tracking status added successfully ✅');
-        return redirect()->back();
+        
+
+        return back()->with('success', 'Tracking updated successfully.');
     }
 
     public function destroy(Order $order, OrderTracking $tracking)

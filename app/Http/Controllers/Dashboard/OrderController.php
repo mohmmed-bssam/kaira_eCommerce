@@ -39,6 +39,12 @@ class OrderController extends Controller
             'order_status' => $request->order_status,
             'payment_status' => $request->payment_status,
         ]);
+        $order->trackings()->latest()->first()?->update(
+            [
+                'status' => $request->order_status,
+                'status_date' => now(),
+            ]
+        );
         flash()->info('order status updated successfully ✅');
         return redirect()->route('dashboard.orders.index');
     }
