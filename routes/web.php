@@ -31,6 +31,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
             // Shop
             Route::get('/shop', [FrontProductController::class, 'index'])->name('shop.index');
             Route::get('/product/{product:slug}', [FrontProductController::class, 'show'])->name('product.show');
+            Route::get('/category/{category:slug}', [FrontProductController::class, 'category'])->name('category.show');
 
             // Cart
             Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

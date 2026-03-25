@@ -22,4 +22,8 @@ class ProductController extends Controller
         $product = Product::where('slug', $slug)->with('category','image')->firstOrFail();
         return view('front.pages.shop.show', compact('product'));
     }
+    public function category($id){
+        $products = Product::where('category_id', $id)->with('category','image')->latest()->get();
+        return view('front.pages.shop.index', compact('products'));
+    }
 }

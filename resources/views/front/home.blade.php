@@ -102,14 +102,14 @@
                         <div class="col-md-4">
                             <div class="cat-item image-zoom-effect">
                                 <div class="image-holder">
-                                    <a href="index.html">
+                                    <a href="{{ route('front.category.show', $category->id) }}">
                                         <img src="{{ asset($category->image->path) }}" alt="categories"
                                             class="product-image img-fluid">
                                     </a>
                                 </div>
                                 <div class="category-content">
                                     <div class="product-button">
-                                        <a href="index.html"
+                                        <a href="{{ route('front.category.show', $category->id) }}"
                                             class="btn btn-common text-uppercase">{{ $category->title_trans }}</a>
                                     </div>
                                 </div>
@@ -216,7 +216,7 @@
             </div>
         </div>
     </section>
-{{-- wishlists --}}
+    {{-- wishlists --}}
     <section id="best-sellers" class="best-sellers product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
@@ -243,8 +243,8 @@
 
 
                                     <form id="add-to-wishlist-{{ $wishlist->product->id }}"
-                                        action="{{ route('front.wishlist.store', $wishlist->product->id) }}" method="POST"
-                                        style="display:none;">
+                                        action="{{ route('front.wishlist.store', $wishlist->product->id) }}"
+                                        method="POST" style="display:none;">
                                         @csrf
                                     </form>
                                     <div class="product-content">
@@ -259,8 +259,8 @@
                                         </a>
 
                                         <form id="add-to-cart-{{ $wishlist->product->id }}"
-                                            action="{{ route('front.cart.store', $wishlist->product->id) }}" method="POST"
-                                            style="display:none;">
+                                            action="{{ route('front.cart.store', $wishlist->product->id) }}"
+                                            method="POST" style="display:none;">
                                             @csrf
                                         </form>
                                     </div>
@@ -570,8 +570,10 @@
                     <div class="subscribe-header text-center pb-3">
                         <h3 class="section-title text-uppercase">Sign Up for our newsletter</h3>
                     </div>
-                    <form id="form" class="d-flex flex-wrap gap-2">
-                        <input type="text" name="email" placeholder="Your Email Addresss"
+                    <form action="{{ route('front.subscribe') }}" method="POST" id="form"
+                        class="d-flex flex-wrap gap-2">
+                        @csrf
+                        <input type="email" name="email" placeholder="Your Email Address"
                             class="form-control form-control-lg">
                         <button class="btn btn-dark btn-lg text-uppercase w-100">Sign Up</button>
                     </form>
