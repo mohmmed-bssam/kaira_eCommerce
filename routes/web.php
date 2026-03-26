@@ -57,7 +57,10 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
             Route::prefix('pages')->name('pages.')->group(function () {
                 Route::get('/about', fn() => view('front.pages.about'))->name('about');
                 Route::get('/account', fn() => view('front.pages.account'))->name('account');
-                Route::get('/tracking', fn() => view('front.pages.tracking'))->name('tracking');
+                Route::middleware(['auth'])->group(function () {
+                    Route::get('/order-tracking', [\App\Http\Controllers\front\OrderTrackingController::class, 'index'])->name('order-tracking.index');
+                    Route::get('/order-tracking/{order}', [\App\Http\Controllers\front\OrderTrackingController::class, 'show'])->name('order-tracking.show');
+                });
             });
             //payment
             Route::get('/payment/{order}', [PaymentController::class, 'checkout'])->name('payment.checkout');

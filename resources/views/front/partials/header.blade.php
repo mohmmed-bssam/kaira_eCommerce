@@ -51,7 +51,7 @@
                                   <li><a class="dropdown-item item-anchor" href="{{ route('profile.edit') }}">My
                                           Account</a></li>
                                   <li><a class="dropdown-item item-anchor"
-                                          href="{{ route('front.pages.tracking') }}">Order Tracking</a></li>
+                                          href="{{ route('front.pages.order-tracking.index') }}">Order Tracking</a></li>
                                   <li><a class="dropdown-item item-anchor"
                                           href="{{ route('front.wishlist.index') }}">Wishlist</a></li>
                               </ul>

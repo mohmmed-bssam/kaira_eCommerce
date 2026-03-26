@@ -162,7 +162,7 @@
              <div class="p-6 text-gray-900">
                  <h3 class="font-semibold text-lg mb-4">Tracking</h3>
                  @php
-                     $tracking = $order->trackings->last();
+                     $tracking = $order->tracking;
                  @endphp
                  <form method="POST" action="{{ route('dashboard.orders.tracking.update', $order) }}"
                      class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -208,28 +208,45 @@
                  <div class="mt-6">
                      <div class="text-sm text-gray-500 mb-2">History</div>
                      <ul class="space-y-2">
-                         @forelse($order->trackings as $t)
-                             <li class="p-3 rounded border flex items-center justify-between">
-                                 <div>
-                                     <div class="font-semibold">{{ $t->tracking_number }} — {{ $t->status }}</div>
-                                     <div class="text-xs text-gray-500">
-                                         {{ $t->shipping_company }} |
-                                         {{ optional($t->status_date)->format('Y-m-d') }} |
-                                         {{ optional($t->delivery_date)->format('Y-m-d') }}
-                                     </div>
-                                 </div>
+                        @if($order->tracking)
+                            <li class="p-3 rounded border flex items-center justify-between">
+                                <div>
+                                    <div class="font-semibold">{{ $order->tracking->tracking_number }} — {{ $order->tracking->status }}</div>
+                                    <div class="text-xs text-gray-500">
+                                        {{ $order->tracking->shipping_company }} |
+                                        {{ optional($order->tracking->status_date)->format('Y-m-d') }} |
+                                        {{ optional($order->tracking->delivery_date)->format('Y-m-d') }}
+                                    </div>
+                                </div>
 
-                                 <form method="POST"
-                                     action="{{ route('dashboard.orders.tracking.destroy', [$order, $t]) }}"
-                                     onsubmit="return confirm('Delete tracking?')">
-                                     @csrf
-                                     @method('DELETE')
-                                     <button class="text-red-600 hover:text-red-800 text-sm">Delete</button>
-                                 </form>
-                             </li>
-                         @empty
+                                <form method="POST"
+                                    action="{{ route('dashboard.orders.tracking.destroy', [$order, $order->tracking]) }}"
+                                    onsubmit="return confirm('Delete tracking?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="text-red-600 hover:text-red-800 text-sm">Delete</button>
+                                </form>
+                            </li>
+                         @else
                              <li class="text-gray-500 text-sm">No tracking yet.</li>
-                         @endforelse
+                         @endif
+
+                         @if($order->tracking && $order->tracking->history)
+                             @foreach($order->tracking->history as $h)
+                                 <li class="p-3 rounded border flex items-center justify-between">
+                                     <div>
+                                         <div class="font-semibold">{{ $h['tracking_number'] }} — {{ $h['status'] }}</div>
+                                         <div class="text-xs text-gray-500">
+                                             {{ $h['shipping_company'] }} |
+                                             {{ optional($h['status_date'])->format('Y-m-d') }} |
+                                             {{ optional($h['delivery_date'])->format('Y-m-d') }}
+                                         </div>
+                                     </div>
+                                 </li>
+                             @endforeach
+                         @endif
+
+
                      </ul>
                  </div>
 

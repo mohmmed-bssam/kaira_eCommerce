@@ -17,7 +17,7 @@ class OrderTrackingController extends Controller
             'delivery_date' => ['nullable', 'date'],
         ]);
 
-        $tracking = $order->trackings()->latest()->first();
+        $tracking = $order->tracking()->latest();
 
         if (!$tracking) {
             $tracking = $order->trackings()->create([
@@ -35,7 +35,7 @@ class OrderTrackingController extends Controller
             ]);
         }
 
-        
+
 
         return back()->with('success', 'Tracking updated successfully.');
     }

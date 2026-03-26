@@ -21,7 +21,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load(['user', 'items.product', 'payment', 'trackings']);
+        $order->load(['user', 'items.product', 'payment', 'tracking']);
         return view('dashboard.orders.show', compact('order'));
     }
 
@@ -39,7 +39,7 @@ class OrderController extends Controller
             'order_status' => $request->order_status,
             'payment_status' => $request->payment_status,
         ]);
-        $order->trackings()->latest()->first()?->update(
+        $order->tracking()->latest()->first()?->update(
             [
                 'status' => $request->order_status,
                 'status_date' => now(),
