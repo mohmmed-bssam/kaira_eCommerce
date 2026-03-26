@@ -139,20 +139,28 @@
                                         <img src="{{ asset($product->image->path) }}" alt="categories"
                                             class="product-image img-fluid">
                                     </a>
-                                    <a href="#"
-                                        onclick="event.preventDefault(); document.getElementById('add-to-wishlist-{{ $product->id }}').submit();"
-                                        class="btn-icon btn-wishlist">
-                                        <svg width="24" height="24" viewBox="0 0 24 24">
-                                            <use xlink:href="#heart"></use>
-                                        </svg>
-                                    </a>
+                                    @php
+                                        $inWishlist = in_array($product->id, $wishlistProductIds ?? []);
+                                    @endphp
+                                    @auth
+
+                                            <a href="#" class="btn-icon btn-wishlist wishlist-toggle"
+                                                data-product-id="{{ $product->id }}">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" class="wishlist-heart"
+                                                    fill="{{ $inWishlist ? 'red' : 'none' }}"
+                                                    stroke="{{ $inWishlist ? 'red' : 'black' }}">
+                                                    <use xlink:href="#heart"></use>
+                                                </svg>
+                                            </a>
+                                        
+                                    @endauth
 
 
-                                    <form id="add-to-wishlist-{{ $product->id }}"
-                                        action="{{ route('front.wishlist.store', $product->id) }}" method="POST"
+                                    {{-- <form id="add-to-wishlist-{{ $product->id }}"
+                                        action="{{ route('front.wishlist.toggle', $product->id) }}" method="POST"
                                         style="display:none;">
                                         @csrf
-                                    </form>
+                                    </form> --}}
                                     <div class="product-content">
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
                                             <a
@@ -233,20 +241,26 @@
                                         <img src="{{ asset($wishlist->product->image->path) }}" alt="categories"
                                             class="product-image img-fluid">
                                     </a>
-                                    <a href="#"
-                                        onclick="event.preventDefault(); document.getElementById('add-to-wishlist-{{ $wishlist->product->id }}').submit();"
-                                        class="btn-icon btn-wishlist">
-                                        <svg width="24" height="24" viewBox="0 0 24 24">
-                                            <use xlink:href="#heart"></use>
-                                        </svg>
-                                    </a>
+                                    @php
+                                        $inWishlist = in_array($product->id, $wishlistProductIds ?? []);
+                                    @endphp
 
+                                    @auth
+                                        <a href="#" class="btn-icon btn-wishlist wishlist-toggle"
+                                            data-product-id="{{ $product->id }}">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" class="wishlist-heart"
+                                                fill="{{ $inWishlist ? 'red' : 'none' }}"
+                                                stroke="{{ $inWishlist ? 'red' : 'black' }}">
+                                                <use xlink:href="#heart"></use>
+                                            </svg>
+                                        </a>
+                                    @endauth
 
-                                    <form id="add-to-wishlist-{{ $wishlist->product->id }}"
-                                        action="{{ route('front.wishlist.store', $wishlist->product->id) }}"
-                                        method="POST" style="display:none;">
+                                    {{-- <form id="add-to-wishlist-{{ $product->id }}"
+                                        action="{{ route('front.wishlist.toggle', $product->id) }}" method="POST"
+                                        style="display:none;">
                                         @csrf
-                                    </form>
+                                    </form> --}}
                                     <div class="product-content">
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
                                             <a

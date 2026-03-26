@@ -51,7 +51,8 @@
                                   <li><a class="dropdown-item item-anchor" href="{{ route('profile.edit') }}">My
                                           Account</a></li>
                                   <li><a class="dropdown-item item-anchor"
-                                          href="{{ route('front.pages.order-tracking.index') }}">Order Tracking</a></li>
+                                          href="{{ route('front.pages.order-tracking.index') }}">Order Tracking</a>
+                                  </li>
                                   <li><a class="dropdown-item item-anchor"
                                           href="{{ route('front.wishlist.index') }}">Wishlist</a></li>
                               </ul>
@@ -101,9 +102,8 @@
               <ul class="list-unstyled d-flex m-0 align-items-center">
 
                   <li class="d-none d-lg-block">
-                      <a href="{{ route('front.wishlist.index') }}" class="text-uppercase mx-3">
-                          Wishlist <span class="wishlist-count">(0)</span>
-                      </a>
+                      <a href="#" class="text-uppercase mx-3">
+                          Wishlist (<span id="wishlist-count">{{ $wishlistCount }}</span>) </a>
                   </li>
 
                   <li class="d-none d-lg-block">

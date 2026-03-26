@@ -43,9 +43,12 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
                 Route::delete('/cart/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
             });
             // Wishlist
-            Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
-            Route::post('/wishlist/{product}', [WishlistController::class, 'store'])->name('wishlist.store');
-            Route::delete('/wishlist/{product}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+          
+            Route::middleware('auth')->group(function () {
+                Route::post('/wishlist/{product}/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+                Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+                Route::delete('/wishlist/{wishlist}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+            });
 
             // Checkout
             Route::middleware(['auth'])->group(function () {

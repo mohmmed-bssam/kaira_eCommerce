@@ -62,3 +62,56 @@
 
     })
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    document.querySelectorAll('.wishlist-toggle').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const productId = this.dataset.productId;
+            const heart = this.querySelector('.wishlist-heart');
+            const countElement = document.getElementById('wishlist-count');
+
+            fetch(`/wishlist/${productId}/toggle`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Request failed');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'added') {
+                    heart.setAttribute('fill', 'red');
+                    heart.setAttribute('stroke', 'red');
+                } else if (data.status === 'removed') {
+                    heart.setAttribute('fill', 'none');
+                    heart.setAttribute('stroke', 'black');
+                }
+
+                if (countElement) {
+                    let currentCount = parseInt(countElement.textContent) || 0;
+
+                    if (data.status === 'added') {
+                        countElement.textContent = currentCount + 1;
+                    } else if (data.status === 'removed') {
+                        countElement.textContent = Math.max(0, currentCount - 1);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Something went wrong');
+            });
+        });
+    });
+});
+</script>
