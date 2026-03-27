@@ -86,12 +86,7 @@
 
                           @endauth
 
-                          {{-- @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                              @if ($localeCode != app()->getLocale())
-                                  <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"
-                                      class="nav-item nav-link">{{ $properties['native'] }}</a>
-                              @endif
-                          @endforeach --}}
+                        
 
                       </ul>
                   </div>

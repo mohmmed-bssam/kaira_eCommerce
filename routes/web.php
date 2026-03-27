@@ -1,5 +1,8 @@
 <?php
 // Front Controllers
+
+use App\Http\Controllers\Dashboard\BlogCategoryController;
+use App\Http\Controllers\Dashboard\BlogPostController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ProductController as FrontProductController;
 use App\Http\Controllers\Front\CartController;
@@ -43,7 +46,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
                 Route::delete('/cart/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
             });
             // Wishlist
-          
+
             Route::middleware('auth')->group(function () {
                 Route::post('/wishlist/{product}/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
                 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
@@ -72,8 +75,10 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
 
             Route::get('/payment/cancel/{order}', [PaymentController::class, 'cancel'])->name('payment.cancel');
 
+                // Blog
 
             Route::get('/blog', [PageController::class, 'blog'])->name('blog.index');
+            Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show');
             Route::get('/contact', [PageController::class, 'contact'])->name('contact');
             Route::post('/contact', [PageController::class, 'contactStore'])->name('contact.store');
             Route::post('/subscribe', [PageController::class, 'subscribe'])->name('subscribe');
@@ -82,6 +87,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
     //Dashboard Routes
     Route::middleware(['auth', 'verified', 'admin'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -91,7 +97,8 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
             Route::resource('products', ProductController::class);
             Route::resource('orders', OrderController::class)->only(['index', 'show', 'update', 'destroy']);
             Route::resource('payments', PaymentController::class)->only(['index', 'show']);
-
+            Route::resource('blog-categories', BlogCategoryController::class);
+            Route::resource('blog-posts', BlogPostController::class);
             // Tracking داخل الطلب
             Route::put('orders/{order}/tracking', [OrderTrackingController::class, 'update'])->name('orders.tracking.update');
             Route::delete('orders/{order}/tracking/{tracking}', [OrderTrackingController::class, 'destroy'])->name('orders.tracking.destroy');
