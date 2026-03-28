@@ -37,8 +37,9 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
             Route::get('/category/{category:slug}', [FrontProductController::class, 'category'])->name('category.show');
 
             // Cart
-            Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
             Route::middleware('auth')->group(function () {
+                Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
                 Route::post('/cart/update-quantity', [CartController::class, 'updateQuantity'])
                     ->name('cart.updateQuantity');
                 Route::post('/cart/{product}', [CartController::class, 'store'])->name('cart.store');
@@ -62,7 +63,9 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
             // Static Pages
             Route::prefix('pages')->name('pages.')->group(function () {
                 Route::get('/about', fn() => view('front.pages.about'))->name('about');
-                Route::get('/account', fn() => view('front.pages.account'))->name('account');
+                Route::get('/slider', [PageController::class, 'slider'])->name('slider');
+
+                Route::get('/account', fn() => view('front.pages.account'))->name('account')->middleware('auth');
                 Route::middleware(['auth'])->group(function () {
                     Route::get('/order-tracking', [\App\Http\Controllers\front\OrderTrackingController::class, 'index'])->name('order-tracking.index');
                     Route::get('/order-tracking/{order}', [\App\Http\Controllers\front\OrderTrackingController::class, 'show'])->name('order-tracking.show');

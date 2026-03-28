@@ -45,6 +45,7 @@
                                   <li><a class="dropdown-item item-anchor"
                                           href="{{ route('front.pages.about') }}">About</a></li>
                                   <li><a class="dropdown-item item-anchor"
+                                    
                                           href="{{ route('front.cart.index') }}">Cart</a></li>
                                   <li><a class="dropdown-item item-anchor"
                                           href="{{ route('front.checkout.index') }}">Checkout</a></li>
@@ -86,7 +87,7 @@
 
                           @endauth
 
-                        
+
 
                       </ul>
                   </div>

@@ -73,6 +73,50 @@
                                     name="about_content">{{ $settings['about_content'] ?? '' }}</x-textarea>
                             </div>
                         </div>
+                        <hr class="my-6">
+
+                        <h3 class="text-lg font-bold">Social Media</h3>
+
+                        <div class="grid grid-cols-4 md:max-w-2xl items-center mt-4">
+                            <div>
+                                <x-input-label for="facebook" class="block font-medium text-sm text-gray-700 !text-lg"
+                                    :value="__('Facebook')" />
+                            </div>
+                            <div class="col-span-2">
+                                <x-text-input id="facebook" class="block mt-1 w-full" type="text" name="facebook"
+                                    :value="$settings['facebook'] ?? ''" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 md:max-w-2xl items-center mt-4">
+                            <div>
+                                <x-input-label for="x" class="block font-medium text-sm text-gray-700 !text-lg"
+                                    :value="__('Twitter/X')" />
+                            </div>
+                            <div class="col-span-2">
+                                <x-text-input id="x" class="block mt-1 w-full" type="text" name="x"
+                                    :value="$settings['x'] ?? ''" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 md:max-w-2xl items-center mt-4">
+                            <div>
+                                <x-input-label for="instagram"
+                                    class="block font-medium text-sm text-gray-700 !text-lg" :value="__('Instagram')" />
+                            </div>
+                            <div class="col-span-2">
+                                <x-text-input id="instagram" class="block mt-1 w-full" type="text"
+                                    name="instagram" :value="$settings['instagram'] ?? ''" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 md:max-w-2xl items-center mt-4">
+                            <div>
+                                <x-input-label for="youtube" class="block font-medium text-sm text-gray-700 !text-lg"
+                                    :value="__('YouTube')" />
+                            </div>
+                            <div class="col-span-2">
+                                <x-text-input id="youtube" class="block mt-1 w-full" type="text" name="youtube"
+                                    :value="$settings['youtube'] ?? ''" />
+                            </div>
+                        </div>
                         <x-primary-button class="mt-6">Save</x-primary-button>
                     </form>
 

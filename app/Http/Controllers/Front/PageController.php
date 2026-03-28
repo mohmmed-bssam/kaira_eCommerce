@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ContactUs;
 use App\Models\BlogPost;
 use App\Models\Massage;
+use App\Models\Slider;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,6 +18,11 @@ class PageController extends Controller
     public function about()
     {
         return view('front.pages.about');
+    }
+    public function slider()
+    {
+        $sliders = Slider::all();
+        return view('front.pages.slider', compact('sliders'));
     }
 
     public function subscribe(Request $request)

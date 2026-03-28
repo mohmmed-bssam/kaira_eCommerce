@@ -18,17 +18,17 @@
                             <div class="swiper-slide">
                                 <div class="banner-item image-zoom-effect">
                                     <div class="image-holder">
-                                        <a href="#">
+                                        <a href="{{ route('front.pages.slider') }}">
                                             <img src="{{ asset($slider->image->path) }}" alt="product" class="img-fluid">
                                         </a>
                                     </div>
                                     <div class="banner-content py-4">
                                         <h5 class="element-title text-uppercase">
-                                            <a href="index.html" class="item-anchor">{{ $slider->title_trans }}</a>
+                                            <a href="{{ route('front.pages.slider') }}" class="item-anchor">{{ $slider->title_trans }}</a>
                                         </h5>
                                         <p>{{ $slider->content_trans }}</p>
                                         <div class="btn-left">
-                                            <a href="#"
+                                            <a href="{{ route('front.pages.slider') }}"
                                                 class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Discover
                                                 Now</a>
                                         </div>
@@ -488,7 +488,7 @@
 
     <section class="instagram position-relative">
         <div class="d-flex justify-content-center w-100 position-absolute bottom-0 z-1">
-            <a href="https://www.instagram.com/templatesjungle/" class="btn btn-dark px-5">Follow us on Instagram</a>
+            <a href="{{ $settings['instagram'] }}" class="btn btn-dark px-5">Follow us on Instagram</a>
         </div>
         <div class="row g-0">
             <div class="col-6 col-sm-4 col-md-2">
