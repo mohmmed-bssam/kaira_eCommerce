@@ -26,17 +26,28 @@ class CartController extends Controller
     {
         $product = Product::findOrFail($productId);
 
+        if ($product->stock <= 0) {
+            flash()->error('Product is out of stock');
+            return back();
+        }
+
         $userId = Auth::id();
 
-        $cart = Cart::firstOrCreate([
+        $cart = Cart::with('items.product')->firstOrCreate([
             'user_id' => $userId
         ]);
 
-        $cartItem = CartItem::where('cart_id', $cart->id)
+        $cartItem = CartItem::with('cart', 'product')->where('cart_id', $cart->id)
             ->where('product_id', $productId)
             ->first();
 
         if ($cartItem) {
+
+            // ❗ تحقق قبل الزيادة
+            if ($cartItem->quantity + 1 > $product->stock) {
+                flash()->error('No more stock available for this product');
+                return back();
+            }
 
             $cartItem->quantity += 1;
             $cartItem->save();
@@ -49,27 +60,28 @@ class CartController extends Controller
                 'quantity' => 1
             ]);
         }
+
         flash()->success('Product added to cart successfully!');
-        return redirect()->back();
+        return back();
     }
 
-    // public function update(Request $request, $itemId)
-    // {
-    //     $item = CartItem::findOrFail($itemId);
-    //     $quantity = max(1, $request->quantity);
 
-    //     $item->update([
-    //         'quantity' => $quantity
-    //     ]);
-
-    //     return back();
-    // }
 
     public function updateQuantity(Request $request)
     {
-        $item = CartItem::with('cart')->findOrFail($request->item_id);
+        $item = CartItem::with('cart', 'product')->findOrFail($request->item_id);
+
+        $product = $item->product;
 
         if ($request->type == 'plus') {
+
+            // ❗ تحقق من المخزون
+            if ($item->quantity + 1 > $product->stock) {
+                return response()->json([
+                    'error' => 'Stock limit reached'
+                ], 400);
+            }
+
             $item->quantity += 1;
         } else {
             $item->quantity = max(1, $item->quantity - 1);
@@ -79,10 +91,7 @@ class CartController extends Controller
 
         $cart = $item->cart->load('items');
 
-        $cartTotal = $cart->items->sum(function ($i) {
-            return $i->price * $i->quantity;
-        });
-
+        $cartTotal = $cart->items->sum(fn($i) => $i->price * $i->quantity);
         $cartCount = $cart->items->sum('quantity');
 
         return response()->json([
