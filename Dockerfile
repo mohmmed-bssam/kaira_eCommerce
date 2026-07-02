@@ -35,8 +35,7 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
-
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 COPY --from=frontend /app/public/build ./public/build
 
 RUN chmod -R 775 storage bootstrap/cache
