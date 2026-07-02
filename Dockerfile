@@ -4,8 +4,7 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
-
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 RUN npm install && npm run build
 
 RUN php artisan config:clear && \
