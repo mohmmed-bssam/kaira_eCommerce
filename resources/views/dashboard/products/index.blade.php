@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex align-items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('admin.products') }}
+                {{ __('Products') }}
             </h2>
             <a class="bg-green-600 p-1 px-8 rounded text-white hover:bg-green-500 duration-200"
                 href="{{ route('dashboard.products.create') }}">{{ __('Add product') }}</a>

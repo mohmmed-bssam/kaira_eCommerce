@@ -35,13 +35,10 @@
                 .then(res => res.json())
                 .then(data => {
 
-                    // الصف
                     let row = document.getElementById("cart-row-" + itemId)
 
-                    // تحديث الكمية
                     row.querySelector(".quantity-value").innerText = data.quantity
 
-                    // تحديث سعر المنتج
                     document.getElementById("item-total-" + itemId).innerText = "$" + data.itemTotal
 
                     document.getElementById("mini-cart-total").innerText = "$" + data.cartTotal
