@@ -5,11 +5,8 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --no-scripts
-# RUN npm install && npm run build
 
-RUN php artisan config:clear && \
-    php artisan route:clear && \
-    php artisan view:clear
+# RUN npm install && npm run build
 
 RUN chmod -R 775 storage bootstrap/cache
 
